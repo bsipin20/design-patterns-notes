@@ -45,7 +45,7 @@ class Dataset(object):
     def transform(self, transformation):
          transformation.execute(self)
  
-
+from unittest.mock import Mock
 transformation = Mock()
 d = Dataset()
 d.transform(transformation)
@@ -71,7 +71,7 @@ class Person(object):
            "density": self.body_measurements.density(),
         }
 
-from unittest import TestCase, Mock
+from unittest import TestCase
 
 class TestPerson(TestCase):
     def test_profile(self):
@@ -83,3 +83,20 @@ class TestPerson(TestCase):
 
        
 
+def zero():
+    return 0
+
+def add_one(f):
+   def func():
+      return zero() + 1
+   return func
+
+zero = add_one(zero)
+zero()
+
+# <==>
+@add_one
+def zero():
+   return 0
+
+zero() -> 1
